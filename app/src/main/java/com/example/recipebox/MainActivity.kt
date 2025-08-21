@@ -29,14 +29,14 @@ class MainActivity : ComponentActivity() {
             RecipeBoxTheme {
                 Scaffold(
                     bottomBar = {
-                        if (currentRoute != Screen.Splash.route && currentRoute != Screen.Onboarding.route) {
+                        if (currentRoute != Screen.Onboarding.route) {
                             CustomBottomBar(navController)
                         }
                     }
                 ) { innerPadding ->
                     NavGraph(
                         navController = navController,
-                        startDestination = Screen.Splash.route,
+                        startDestination = Screen.Onboarding.route,
                         modifier = Modifier.padding(innerPadding)
                     )
                 }

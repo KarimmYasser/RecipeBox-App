@@ -55,6 +55,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.core.splashscreen)
+    implementation(libs.coil.gif)
 
     // Room
     implementation(libs.androidx.room.runtime)
@@ -76,7 +77,7 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     
     // JSON Serialization
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+    implementation(libs.kotlinx.serialization.json)
 
     // Hilt
     implementation(libs.hilt.android)

@@ -35,30 +35,14 @@ import com.example.recipebox.presentation.profile.ProfileScreen
 import com.example.recipebox.presentation.recipe.add.AddNewRecipeStepper
 import com.example.recipebox.presentation.recipe.detail.RecipeDetailScreen
 import com.example.recipebox.presentation.search.SearchScreen
-import com.example.recipebox.presentation.splash.SplashScreen
 
 @Composable
 fun NavGraph(navController: NavHostController, startDestination: String, modifier: Modifier) {
     NavHost(
         navController = navController,
         startDestination = startDestination,
-        modifier = modifier
+        modifier = Modifier
     ) {
-        composable(Screen.Splash.route) {
-            SplashScreen(
-                onSplashFinished = {
-                    try {
-                        navController.navigate(Screen.Onboarding.route) {
-                            popUpTo(Screen.Splash.route) { inclusive = true }
-                        }
-                    } catch (e: Exception) {
-                        navController.navigate(Screen.Home.route) {
-                            popUpTo(Screen.Splash.route) { inclusive = true }
-                        }
-                    }
-                }
-            )
-        }
         composable(Screen.Onboarding.route) {
             OnboardingScreen(
                 onFinish = {
@@ -155,7 +139,6 @@ fun CustomBottomBar(navController: NavController) {
                                 Screen.Save -> painterResource(R.drawable.recipebook)
                                 Screen.Profile -> painterResource(R.drawable.user)
                                 Screen.Onboarding -> painterResource(R.drawable.home)
-                                Screen.Splash -> painterResource(R.drawable.home)
                                 Screen.RecipeDetail -> painterResource(R.drawable.home)
                             },
                             contentDescription = screen.route,
@@ -179,7 +162,6 @@ fun CustomBottomBar(navController: NavController) {
                                 Screen.Save -> painterResource(R.drawable.recipebook)
                                 Screen.Profile -> painterResource(R.drawable.user)
                                 Screen.Onboarding -> painterResource(R.drawable.home)
-                                Screen.Splash -> painterResource(R.drawable.home)
                                 Screen.RecipeDetail -> painterResource(R.drawable.home)
                             },
                             contentDescription = screen.route,

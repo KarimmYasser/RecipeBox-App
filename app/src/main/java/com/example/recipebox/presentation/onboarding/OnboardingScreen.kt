@@ -43,6 +43,9 @@ import androidx.compose.ui.unit.sp
 import com.example.recipebox.R
 import com.example.recipebox.ui.theme.AqradaFontFamily
 import com.example.recipebox.ui.theme.Black
+import com.example.recipebox.ui.theme.Primary
+import com.example.recipebox.ui.theme.Secondary
+import com.example.recipebox.ui.theme.Tertiary
 import kotlinx.coroutines.launch
 import kotlin.math.abs
 import kotlin.math.roundToInt
@@ -54,17 +57,17 @@ fun OnboardingScreen(
 ) {
     val pages = listOf(
         OnboardingPage(
-            background = Color(0xFF305FDE),
+            background = Primary,
             images = listOf(R.drawable.dish_1, R.drawable.dish_2, R.drawable.dish_3),
             text = "Your personal guide to be a chef"
         ),
         OnboardingPage(
-            background = Color(0xFFFF7043),
+            background = Secondary,
             images = listOf(R.drawable.dish_4, R.drawable.dish_5, R.drawable.dish_6),
             text = "Share the Love, Share the Recipe"
         ),
         OnboardingPage(
-            background = Color(0xFFFBC02D),
+            background = Tertiary,
             images = listOf(R.drawable.dish_7, R.drawable.dish_8, R.drawable.dish_9),
             text = "Foodify Your Global Kitchen"
         )
