@@ -44,7 +44,7 @@ class SplashActivity : ComponentActivity() {
     @Composable
     private fun SplashScreen() {
         LaunchedEffect(key1 = true) {
-            delay(2000)
+            delay(1000)
             startActivity(Intent(this@SplashActivity, MainActivity::class.java))
         }
         val context = LocalContext.current
