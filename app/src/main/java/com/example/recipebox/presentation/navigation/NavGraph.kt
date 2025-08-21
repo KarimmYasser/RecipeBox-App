@@ -38,8 +38,12 @@ import com.example.recipebox.presentation.search.SearchScreen
 import com.example.recipebox.presentation.splash.SplashScreen
 
 @Composable
-fun NavGraph(navController: NavHostController, startDestination: String) {
-    NavHost(navController = navController, startDestination = startDestination) {
+fun NavGraph(navController: NavHostController, startDestination: String, modifier: Modifier) {
+    NavHost(
+        navController = navController,
+        startDestination = startDestination,
+        modifier = modifier
+    ) {
         composable(Screen.Splash.route) {
             SplashScreen(
                 onSplashFinished = {
