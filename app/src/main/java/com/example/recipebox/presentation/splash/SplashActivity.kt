@@ -46,6 +46,7 @@ class SplashActivity : ComponentActivity() {
         LaunchedEffect(key1 = true) {
             delay(1000)
             startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+            finish()
         }
         val context = LocalContext.current
         val imageLoader = ImageLoader.Builder(context)
