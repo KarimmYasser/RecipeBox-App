@@ -116,10 +116,9 @@ fun OnboardingScreen(
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.spacedBy(24.dp),
+            verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier.height(60.dp))
 
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -131,14 +130,14 @@ fun OnboardingScreen(
                     // Current Page Images
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.spacedBy(24.dp),
+                        verticalArrangement = Arrangement.spacedBy(18.dp),
                         modifier = Modifier.offset { IntOffset(offsetX.value.roundToInt(), 0) }
                     ) {
                         pages[currentPage].images.forEach { imageRes ->
                             Image(
                                 painter = painterResource(id = imageRes),
                                 contentDescription = null,
-                                modifier = Modifier.size(140.dp)
+                                modifier = Modifier.size(100.dp)
                             )
                         }
                     }
@@ -147,7 +146,7 @@ fun OnboardingScreen(
                     if (nextPage != currentPage) {
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.spacedBy(24.dp),
+                            verticalArrangement = Arrangement.spacedBy(18.dp),
                             modifier = Modifier.offset {
                                 IntOffset(
                                     (offsetX.value - screenWidth * fraction.sign).roundToInt(),
@@ -159,7 +158,7 @@ fun OnboardingScreen(
                                 Image(
                                     painter = painterResource(id = imageRes),
                                     contentDescription = null,
-                                    modifier = Modifier.size(140.dp)
+                                    modifier = Modifier.size(100.dp)
                                 )
                             }
                         }
@@ -167,18 +166,17 @@ fun OnboardingScreen(
                 }
             }
 
-            Spacer(modifier = Modifier.height(20.dp))
-
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
+                    .padding(40.dp)
                     .background(Black, shape = MaterialTheme.shapes.large)
-                    .size(320.dp, 220.dp)
-                    .padding(10.dp)
+                    .fillMaxWidth()
+                    .padding(20.dp)
             ) {
                 Box(
                     modifier = Modifier
-                        .size(320.dp, 120.dp)
+                        .fillMaxWidth()
                 ) {
                     Crossfade(targetState = currentPage, label = "OnboardingText") { page ->
                         Text(
@@ -192,6 +190,7 @@ fun OnboardingScreen(
                         )
                     }
                 }
+                Spacer(modifier = Modifier.height(20.dp))
                 val progress = (currentPage - fraction + 1) / pages.size.toFloat()
                 Box(
                     modifier = Modifier
@@ -232,7 +231,6 @@ fun OnboardingScreen(
                     }
                 }
             }
-            Spacer(modifier = Modifier.height(60.dp))
         }
     }
 }
