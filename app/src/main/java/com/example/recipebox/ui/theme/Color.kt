@@ -20,4 +20,3 @@ val Warning = Color(0xFFF8A828)
 val WarningLight = Color(0xFFFEE7A8)
 val Info = Color(0xFF05B5BF)
 val InfoLight = Color(0xFF97F8E5)
-

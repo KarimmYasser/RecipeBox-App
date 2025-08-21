@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.RecipeBox" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo</item>
+        <item name="android:windowSplashScreenBackground">@color/primary</item>
+        <item name="splashScreenIconSize">100dp</item>
+    </style>
+</resources>

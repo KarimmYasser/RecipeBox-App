@@ -20,18 +20,17 @@ private val DarkColorScheme = darkColorScheme(
 private val LightColorScheme = lightColorScheme(
     primary = Primary,
     secondary = Secondary,
-    tertiary = Tertiary,
-    background = White,
-    surface = Primary,
-    onPrimary = White,
-    onSecondary = White,
-    onTertiary = Black,
-    onBackground = NeutralBlack,
-    onSurface = White,
-    error = Error,
-    onError = White,
-    surfaceVariant = Black,
-    onSurfaceVariant = White
+    tertiary = Tertiary
+
+    /* Other default colors to override
+    background = Color(0xFFFFFBFE),
+    surface = Color(0xFFFFFBFE),
+    onPrimary = Color.White,
+    onSecondary = Color.White,
+    onTertiary = Color.White,
+    onBackground = Color(0xFF1C1B1F),
+    onSurface = Color(0xFF1C1B1F),
+    */
 )
 
 @Composable
@@ -42,7 +41,7 @@ fun RecipeBoxTheme(
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
-        dynamicColor -> {
+        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
