@@ -1,4 +1,12 @@
 package com.example.recipebox.domain.usecase
 
-class AddToCollectionUseCase {
+import com.example.recipebox.domain.repository.CollectionRepository
+import jakarta.inject.Inject
+
+class AddToCollectionUseCase @Inject constructor(
+    private val repo: CollectionRepository
+) {
+    suspend operator fun invoke(recipeId: Long, collectionId: Long): Result<Unit> = runCatching {
+        repo.addRecipeToCollection(recipeId, collectionId)
+    }
 }

@@ -14,12 +14,14 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -29,6 +31,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.navArgument
 import com.example.recipebox.R
 import com.example.recipebox.presentation.collection.CollectionScreen
+import com.example.recipebox.presentation.collection.CollectionScreenRoute
+import com.example.recipebox.presentation.collection.CollectionViewModel
 import com.example.recipebox.presentation.home.HomeScreen
 import com.example.recipebox.presentation.onboarding.OnboardingScreen
 import com.example.recipebox.presentation.profile.ProfileScreen
@@ -69,7 +73,17 @@ fun NavGraph(navController: NavHostController, startDestination: String, modifie
                 }
             )
         }
-        composable(Screen.Save.route) { CollectionScreen() }
+        composable(Screen.Save.route) {
+            val viewModel: CollectionViewModel = hiltViewModel()
+            val state = viewModel.ui.collectAsState().value
+
+            CollectionScreenRoute(
+                onCollectionClick = { id ->
+                    navController.navigate("collection/$id") // or your detail route
+                }
+            )
+        }
+
         composable(Screen.Profile.route) { ProfileScreen() }
         composable(
             route = Screen.RecipeDetail.route + "/{recipeId}",
@@ -107,8 +121,10 @@ fun CustomBottomBar(navController: NavController) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         items.forEach { screen ->
-            val selected = currentRoute == screen.route
-
+            val selected = when (screen) {
+                Screen.RecipeDetail -> currentRoute?.startsWith(Screen.RecipeDetail.route) == true
+                else -> currentRoute == screen.route
+            }
             Box(
 
                 modifier = Modifier

@@ -27,9 +27,14 @@ class MainActivity : ComponentActivity() {
             val currentRoute = navBackStackEntry?.destination?.route
 
             RecipeBoxTheme {
+                // Hide on onboarding AND detail
+                val shouldShowBottomBar =
+                    currentRoute != Screen.Onboarding.route &&
+                            (currentRoute?.startsWith(Screen.RecipeDetail.route) != true)
+
                 Scaffold(
                     bottomBar = {
-                        if (currentRoute != Screen.Onboarding.route) {
+                        if (shouldShowBottomBar) {
                             CustomBottomBar(navController)
                         }
                     }

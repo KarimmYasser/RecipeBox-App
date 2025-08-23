@@ -1,13 +1,16 @@
 package com.example.recipebox.data.repository
 
 import com.example.recipebox.data.local.dao.CollectionDao
+import com.example.recipebox.data.local.entity.RecipeCollectionCrossRef
 import com.example.recipebox.data.mapper.*
+import com.example.recipebox.domain.model.Recipe
 import com.example.recipebox.domain.model.RecipeCollection
 import com.example.recipebox.domain.repository.CollectionRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.collections.map
 
 @Singleton
 class CollectionRepositoryImpl @Inject constructor(
@@ -35,10 +38,21 @@ class CollectionRepositoryImpl @Inject constructor(
     override suspend fun deleteCollection(collection: RecipeCollection) {
         collectionDao.deleteCollection(collection.toEntity())
     }
-    
+
     override suspend fun addRecipeToCollection(recipeId: Long, collectionId: Long) {
+        collectionDao.addRecipeToCollection(
+            RecipeCollectionCrossRef(recipeId = recipeId, collectionId = collectionId)
+        )
     }
-    
+
     override suspend fun removeRecipeFromCollection(recipeId: Long, collectionId: Long) {
+        collectionDao.removeRecipeFromCollection(
+            RecipeCollectionCrossRef(recipeId = recipeId, collectionId = collectionId)
+        )
     }
+    override fun getRecipesInCollection(collectionId: Long): Flow<List<Recipe>> {
+        return collectionDao.getRecipesForCollection(collectionId)
+            .map { recipes -> recipes.map { it.toDomain() } }
+    }
+
 }

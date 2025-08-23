@@ -3,9 +3,9 @@
 
     <style name="Theme.RecipeBox" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:statusBarColor">@color/primary</item>
-        <item name="android:windowBackground">@drawable/splash_background</item>
+<!--        <item name="android:windowBackground">@drawable/splash_background</item>-->
         <item name="windowSplashScreenBackground">@color/primary</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_background</item>
+<!--        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_background</item>-->
         <item name="postSplashScreenTheme">@style/Theme.RecipeBox</item>
     </style>
 </resources>

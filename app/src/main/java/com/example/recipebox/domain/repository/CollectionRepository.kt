@@ -1,5 +1,6 @@
 package com.example.recipebox.domain.repository
 
+import com.example.recipebox.domain.model.Recipe
 import com.example.recipebox.domain.model.RecipeCollection
 import kotlinx.coroutines.flow.Flow
 
@@ -11,4 +12,5 @@ interface CollectionRepository {
     suspend fun deleteCollection(collection: RecipeCollection)
     suspend fun addRecipeToCollection(recipeId: Long, collectionId: Long)
     suspend fun removeRecipeFromCollection(recipeId: Long, collectionId: Long)
+    fun getRecipesInCollection(collectionId: Long): Flow<List<Recipe>>
 }
