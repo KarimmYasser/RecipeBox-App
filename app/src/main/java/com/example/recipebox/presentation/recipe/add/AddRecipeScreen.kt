@@ -7,6 +7,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.recipebox.presentation.recipe.detail.RecipeDetailScreen
+import com.example.recipebox.presentation.recipe.detail.RecipeDetailsScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -62,7 +64,10 @@ fun AddRecipeScreen(
                 onNext = { viewModel.nextStep() }
             )
 
-            4 -> ConfirmScreen(recipeData)
+            4 -> RecipeDetailsScreen(
+                onBack = { viewModel.previousStep() },
+                onNext = { viewModel.nextStep() }
+            )
         }
 
         Spacer(modifier = Modifier.height(16.dp))

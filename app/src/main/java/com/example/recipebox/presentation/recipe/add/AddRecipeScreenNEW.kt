@@ -41,12 +41,12 @@ import com.example.recipebox.ui.theme.AqradaFontFamily
 import com.example.recipebox.ui.theme.MontserratFontFamily
 import okhttp3.internal.http2.Header
 
-@Composable
-fun AddRecipeScreen()
-{
-    var servings = 0
-    RecipeInformationScreen(onBack = {}, onNext = {}, servings = servings, onServingsChange = {})
-}
+//@Composable
+//fun AddRecipeScreen()
+//{
+//    var servings = 0
+//    RecipeInformationScreen(onBack = {}, onNext = {}, servings = servings, onServingsChange = {})
+//}
 
 /* ---------- Stepper + helpers ---------- */
 
@@ -155,7 +155,7 @@ private fun ActiveLabelChip(text: String) {
             text,
             color = Color(0xFFF2E739),
             fontWeight = FontWeight.SemiBold,
-            fontSize = 14.sp,
+            fontSize = 12.sp,
             fontFamily = MontserratFontFamily
         )
     }
@@ -216,8 +216,8 @@ fun HorizontalConcaveBothSidesShape(concaveDepth: Float = 0.3f) : Shape {
 
 /* ---------- Preview ---------- */
 
-@Preview(showBackground = true, backgroundColor = 0xFFF8FBF6)
-@Composable
-private fun RecipePreview() {
-    AddRecipeScreen()
-}
+//@Preview(showBackground = true, backgroundColor = 0xFFF8FBF6)
+//@Composable
+//private fun RecipePreview() {
+//    AddRecipeScreen()
+//}

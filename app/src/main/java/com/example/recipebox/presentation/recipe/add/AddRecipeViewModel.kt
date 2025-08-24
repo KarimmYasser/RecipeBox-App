@@ -95,7 +95,7 @@ class AddRecipeViewModel @Inject constructor(
     }
     
     fun nextStep() {
-        if (_currentStep.value < 3) {
+        if (_currentStep.value < 4) {
             _currentStep.value = _currentStep.value + 1
         }
     }

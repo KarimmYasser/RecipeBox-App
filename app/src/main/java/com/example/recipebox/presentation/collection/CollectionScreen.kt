@@ -62,7 +62,7 @@ fun CollectionScreen(
 ) {
     var showCreate by remember { mutableStateOf(false) }
 
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier.fillMaxSize().systemBarsPadding()) {
 
         // Header bar styled like Figma
         Box(
