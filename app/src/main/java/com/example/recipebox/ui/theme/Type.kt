@@ -12,6 +12,10 @@ val AqradaFontFamily = FontFamily(
     Font(R.font.aqrada, FontWeight.Normal)
 )
 
+val MontserratFontFamily = FontFamily(
+   Font(R.font.montserrat)
+)
+
 // Set of Material typography styles to start with
 val Typography = Typography(
     bodyLarge = TextStyle(

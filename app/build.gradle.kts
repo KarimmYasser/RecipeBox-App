@@ -46,65 +46,69 @@ android {
 }
 
 dependencies {
-    implementation(libs.accompanist.flowlayout)
+    // Compose BOM (manages versions for all compose libs)
+    implementation(platform(libs.androidx.compose.bom))
+
+    // Core
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
+
+    // Compose
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation(libs.androidx.core.splashscreen)
-    implementation(libs.coil.gif)
-
-    // Room
-    implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.ktx)
-    implementation(libs.material3)
-    implementation(libs.androidx.animation.core.lint)
-    implementation(libs.androidx.runtime)
     implementation(libs.androidx.foundation)
-    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.runtime)
+    implementation(libs.androidx.animation.core.lint) // ⚠️ double-check if you really need this
+
+    // Material Icons
+    implementation(libs.androidx.material.icons.extended)
+
+    // Navigation
+    implementation(libs.androidx.navigation.compose)
 
     // Lifecycle & ViewModel
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 
-    // Navigation
-    implementation(libs.androidx.navigation.compose)
-
-    // Coroutines
-    implementation(libs.kotlinx.coroutines.android)
-    
-    // JSON Serialization
-    implementation(libs.kotlinx.serialization.json)
+    // Room
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
 
     // Hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
 
+    // Coroutines
+    implementation(libs.kotlinx.coroutines.android)
+
+    // JSON Serialization
+    implementation(libs.kotlinx.serialization.json)
+
+    // Accompanist
+    implementation(libs.accompanist.flowlayout)
+
+    // Coil
     implementation(libs.coil.compose)
+    implementation(libs.coil.gif)
 
-    implementation(libs.androidx.material.icons.extended)
+    // Splash screen
+    implementation(libs.androidx.core.splashscreen)
 
-
-
-
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.ui)
-    implementation(libs.androidx.ui.graphics)
-    implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
+    // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+
+    // Debug
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }
+
 
