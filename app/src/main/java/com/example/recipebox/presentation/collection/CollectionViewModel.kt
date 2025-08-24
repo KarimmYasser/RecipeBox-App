@@ -62,7 +62,13 @@ class CollectionViewModel @Inject constructor(
 
     fun addRecipe(recipeId: Long, collectionId: Long) = viewModelScope.launch {
         addToCollection(recipeId, collectionId)
-            .onFailure { _ui.update { it.copy(error = null) } }
+            .onSuccess {
+                // If you're on the detail screen, refresh its list:
+                loadRecipesForCollection(collectionId)
+            }
+            .onFailure { e ->
+                _ui.update { it.copy(error = e.message ?: "Failed to add recipe") }
+            }
     }
 
     fun removeRecipe(recipeId: Long, collectionId: Long) = viewModelScope.launch {

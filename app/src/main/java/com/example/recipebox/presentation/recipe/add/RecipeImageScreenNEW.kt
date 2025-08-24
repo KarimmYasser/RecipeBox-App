@@ -105,7 +105,7 @@ fun RecipeImageScreen(
             )
         }
 
-        Spacer(Modifier.weight(1f))
+
 
         Button(
             onClick = onSave,

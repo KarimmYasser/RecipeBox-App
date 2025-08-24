@@ -32,7 +32,7 @@ import com.example.recipebox.presentation.collection.CollectionScreenRoute
 import com.example.recipebox.presentation.home.HomeScreen
 import com.example.recipebox.presentation.onboarding.OnboardingScreen
 import com.example.recipebox.presentation.profile.ProfileScreen
-import com.example.recipebox.presentation.recipe.add.AddNewRecipeStepper
+import com.example.recipebox.presentation.recipe.add.AddRecipeScreen
 import com.example.recipebox.presentation.recipe.detail.RecipeDetailScreen
 import com.example.recipebox.presentation.search.SearchScreen
 
@@ -61,12 +61,8 @@ fun NavGraph(navController: NavHostController, startDestination: String, modifie
             )
         }
         composable(Screen.Add.route) {
-            AddNewRecipeStepper(
-                onRecipeCreated = { recipeId ->
-                    navController.navigate("${Screen.RecipeDetail.route}/$recipeId") {
-                        popUpTo(Screen.Add.route) { inclusive = true }
-                    }
-                }
+            AddRecipeScreen(
+                navController = navController
             )
         }
         composable(Screen.Save.route) {

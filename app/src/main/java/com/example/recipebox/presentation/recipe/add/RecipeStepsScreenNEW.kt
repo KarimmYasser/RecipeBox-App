@@ -158,9 +158,6 @@ fun RecipeStepsScreen(
                 )
             }
         }
-
-        Spacer(Modifier.weight(1f))
-
         Button(
             onClick = onNext,
             modifier = Modifier
@@ -177,6 +174,7 @@ fun RecipeStepsScreen(
                 fontSize = 16.sp
             )
         }
+        Spacer(modifier = Modifier.height(50.dp))
     }
 }
 
