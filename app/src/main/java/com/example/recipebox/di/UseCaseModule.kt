@@ -37,4 +37,7 @@ object UseCaseModule {
 
     @Provides @Singleton
     fun provideRemoveFromCollectionUseCase(repo: CollectionRepository) = RemoveFromCollectionUseCase(repo)
+    @Provides @Singleton
+    fun provideDeleteCollectionUseCase(repo: CollectionRepository) =
+        DeleteCollectionUseCase(repo)
 }

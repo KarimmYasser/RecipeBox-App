@@ -14,14 +14,12 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -30,9 +28,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.navArgument
 import com.example.recipebox.R
-import com.example.recipebox.presentation.collection.CollectionScreen
 import com.example.recipebox.presentation.collection.CollectionScreenRoute
-import com.example.recipebox.presentation.collection.CollectionViewModel
 import com.example.recipebox.presentation.home.HomeScreen
 import com.example.recipebox.presentation.onboarding.OnboardingScreen
 import com.example.recipebox.presentation.profile.ProfileScreen
@@ -74,16 +70,22 @@ fun NavGraph(navController: NavHostController, startDestination: String, modifie
             )
         }
         composable(Screen.Save.route) {
-            val viewModel: CollectionViewModel = hiltViewModel()
-            val state = viewModel.ui.collectAsState().value
-
             CollectionScreenRoute(
                 onCollectionClick = { id ->
-                    navController.navigate("collection/$id") // or your detail route
+                    navController.navigate("${Screen.CollectionDetail.route}/$id")
                 }
             )
         }
-
+        composable(
+            route = Screen.CollectionDetail.route + "/{collectionId}",
+            arguments = listOf(navArgument("collectionId") { type = NavType.LongType })
+        ) { backStackEntry ->
+            val collectionId = backStackEntry.arguments?.getLong("collectionId") ?: 0L
+            com.example.recipebox.presentation.collection.CollectionDetailScreen(
+                collectionId = collectionId,
+                navController = navController
+            )
+        }
         composable(Screen.Profile.route) { ProfileScreen() }
         composable(
             route = Screen.RecipeDetail.route + "/{recipeId}",
@@ -113,6 +115,17 @@ fun CustomBottomBar(navController: NavController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
 
+    @Composable
+    fun iconFor(screen: Screen) = when (screen) {
+        Screen.Home -> painterResource(R.drawable.home)
+        Screen.Search -> painterResource(R.drawable.search)
+        Screen.Add -> painterResource(R.drawable.soup)
+        Screen.Save -> painterResource(R.drawable.recipebook)
+        Screen.Profile -> painterResource(R.drawable.user)
+        // Covers Onboarding, RecipeDetail, CollectionDetail, and any future screens
+        else -> painterResource(R.drawable.home)
+    }
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -122,16 +135,24 @@ fun CustomBottomBar(navController: NavController) {
     ) {
         items.forEach { screen ->
             val selected = when (screen) {
-                Screen.RecipeDetail -> currentRoute?.startsWith(Screen.RecipeDetail.route) == true
-                else -> currentRoute == screen.route
-            }
-            Box(
+                // recipe detail keeps its own tab selected
+                Screen.RecipeDetail ->
+                    currentRoute?.startsWith(Screen.RecipeDetail.route) == true
 
+                // SAVE tab stays selected on its own screen and on collection detail
+                Screen.Save ->
+                    currentRoute == Screen.Save.route ||
+                            currentRoute?.startsWith(Screen.CollectionDetail.route) == true
+
+                else ->
+                    currentRoute == screen.route
+            }
+
+            Box(
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxHeight()
                     .background(Color(0xFF4058A0)),
-
                 contentAlignment = Alignment.Center
             ) {
                 if (selected) {
@@ -141,45 +162,23 @@ fun CustomBottomBar(navController: NavController) {
                             .size(60.dp)
                             .background(Color(0xFFFF5722), CircleShape)
                             .clickable {
-                                navController.navigate(screen.route) {
-                                    launchSingleTop = true
-                                }
+                                navController.navigate(screen.route) { launchSingleTop = true }
                             },
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
-                            painter = when (screen) {
-                                Screen.Home -> painterResource(R.drawable.home)
-                                Screen.Search -> painterResource(R.drawable.search)
-                                Screen.Add -> painterResource(R.drawable.soup)
-                                Screen.Save -> painterResource(R.drawable.recipebook)
-                                Screen.Profile -> painterResource(R.drawable.user)
-                                Screen.Onboarding -> painterResource(R.drawable.home)
-                                Screen.RecipeDetail -> painterResource(R.drawable.home)
-                            },
+                            painter = iconFor(screen),
                             contentDescription = screen.route,
                             tint = Color.White,
-
                             modifier = Modifier.size(20.dp)
                         )
-
                     }
                 } else {
                     IconButton(onClick = {
-                        navController.navigate(screen.route) {
-                            launchSingleTop = true
-                        }
+                        navController.navigate(screen.route) { launchSingleTop = true }
                     }) {
                         Icon(
-                            painter = when (screen) {
-                                Screen.Home -> painterResource(R.drawable.home)
-                                Screen.Search -> painterResource(R.drawable.search)
-                                Screen.Add -> painterResource(R.drawable.soup)
-                                Screen.Save -> painterResource(R.drawable.recipebook)
-                                Screen.Profile -> painterResource(R.drawable.user)
-                                Screen.Onboarding -> painterResource(R.drawable.home)
-                                Screen.RecipeDetail -> painterResource(R.drawable.home)
-                            },
+                            painter = iconFor(screen),
                             contentDescription = screen.route,
                             tint = Color.LightGray
                         )

@@ -24,7 +24,8 @@ class CollectionViewModel @Inject constructor(
     private val editCollection: EditCollectionUseCase,
     private val addToCollection: AddToCollectionUseCase,
     private val removeFromCollection: RemoveFromCollectionUseCase,
-    private val getRecipesInCollection: GetRecipesInCollectionUseCase
+    private val getRecipesInCollection: GetRecipesInCollectionUseCase,
+    private val deleteCollection: DeleteCollectionUseCase
 ) : ViewModel() {
 
     private val _ui = MutableStateFlow(CollectionsUiState(loading = true))
@@ -68,9 +69,13 @@ class CollectionViewModel @Inject constructor(
         removeFromCollection(recipeId, collectionId)
             .onFailure { _ui.update { it.copy(error = null) } }
     }
-
+    fun delete(collection: RecipeCollection, onDone: () -> Unit = {}) = viewModelScope.launch {
+        deleteCollection(collection)
+            .onSuccess { onDone() }
+            .onFailure { _ui.update { it.copy(error = null) } }
+    }
+    fun setError(error: String) { _ui.update { it.copy(error = error) } }
     fun clearError() { _ui.update { it.copy(error = null) } }
-
 
 
 }
